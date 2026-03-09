@@ -1,5 +1,5 @@
 import express from "express";
-import router from "./routes/routes.js";
+import router from "./routes/postRoutes.js";
 import dotenv from "dotenv";
 import { dbConnect } from "./db/dbConnection.js";
 dotenv.config();
