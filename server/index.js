@@ -1,5 +1,5 @@
 import express from "express";
-import router from "./routes/routes.js";
+import router from "./routes/postRoutes.js";
 import dotenv from "dotenv";
 import { dbConnect } from "./db/dbConnection.js";
 dotenv.config();
@@ -9,6 +9,7 @@ const port = process.env.PORT;
 const dbUrl = process.env.Db_URL;
 dbConnect(dbUrl);
 
+galleryApp.use(express.json());
 galleryApp.use("/", router);
 
 galleryApp.listen(port, () =>
