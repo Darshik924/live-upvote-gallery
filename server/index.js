@@ -10,7 +10,7 @@ const dbUrl = process.env.Db_URL;
 dbConnect(dbUrl);
 
 galleryApp.use(express.json());
-galleryApp.use("/", router);
+galleryApp.use("/api", router);
 
 galleryApp.listen(port, () =>
   console.log(`Server is up for you ;) at ${port}`),

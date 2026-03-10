@@ -23,6 +23,17 @@ const createPost = async ({ title, imageUrl }) => {
   }
 };
 
+const deletePost = async ({ title, imageUrl }) => {
+  try {
+    const post = await postModel.findOne({ title: title, imageUrl: imageUrl });
+    await postModel.deleteOne(post);
+
+    return post;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const doesImageExist = async ({ title, imageUrl }) => {
   try {
     const post = await postModel.findOne({ imageUrl: imageUrl });
@@ -37,5 +48,5 @@ const doesImageExist = async ({ title, imageUrl }) => {
   }
 };
 
-export { doesImageExist, createPost };
+export { doesImageExist, createPost, deletePost };
 export default postModel;
