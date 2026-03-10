@@ -6,18 +6,36 @@ const postSchema = mongoose.Schema({
   upvotes: { type: Number, default: 0 },
 });
 
-const postModel = mongoose.Model("Post", postSchema);
+const postModel = mongoose.model("Post", postSchema);
 
-export default postModel;
+const createPost = async ({ title, imageUrl }) => {
+  try {
+    const m = {
+      title,
+      imageUrl,
+      upvotes: 0,
+    };
 
-const createPost=async ({title,imageUrl}) => {
-    try{
-        const m={
-            title,
-            imageUrl,
-            upvotes:0,
-        }
-    }catch(err){
-        
+    postModel.insertOne(m);
+    return m;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const doesImageExist = async ({ title, imageUrl }) => {
+  try {
+    const post = await postModel.findOne({ imageUrl: imageUrl });
+
+    if (post) {
+      return true;
+    } else {
+      return false;
     }
-}
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export { doesImageExist, createPost };
+export default postModel;

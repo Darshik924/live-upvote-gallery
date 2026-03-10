@@ -9,6 +9,7 @@ const port = process.env.PORT;
 const dbUrl = process.env.Db_URL;
 dbConnect(dbUrl);
 
+galleryApp.use(express.json());
 galleryApp.use("/", router);
 
 galleryApp.listen(port, () =>
