@@ -1,11 +1,12 @@
 import React from "react";
 import Nav from "./components/Nav";
+import Gallery from "./components/Gallery";
 
 const App = () => {
   return (
     <div>
       <Nav />
-      <h2 className="text-9xl font-bold">Frontend Task 3</h2>
+      <Gallery />
     </div>
   );
 };
