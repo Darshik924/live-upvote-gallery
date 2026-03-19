@@ -1,9 +1,10 @@
 import React from "react";
+import Nav from "./components/Nav";
 
 const App = () => {
   return (
     <div>
-      <h1>APP</h1>
+      <Nav />
       <h2 className="text-9xl font-bold">Frontend Task 3</h2>
     </div>
   );
