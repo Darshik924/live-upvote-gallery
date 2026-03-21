@@ -34,7 +34,7 @@ const deletePost = async ({ title, imageUrl }) => {
   }
 };
 
-const doesImageExist = async ({ title, imageUrl }) => {
+const doesImageExist = async ({ imageUrl }) => {
   try {
     const post = await postModel.findOne({ imageUrl: imageUrl });
 
