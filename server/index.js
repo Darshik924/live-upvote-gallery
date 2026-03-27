@@ -1,9 +1,16 @@
+import "./config/env.js";
+/* In Order to always make sure to Load .env before anything else we use this way */
+
+/*
+Must Aviod:
+1. All imports execute first 
+2. cloudinary.js runs → process.env is undefined 
+3. THEN dotenv.config() runs (too late) 
+*/
+
 import express from "express";
 import router from "./routes/postRoutes.js";
-import dotenv from "dotenv";
 import { dbConnect } from "./db/dbConnection.js";
-
-dotenv.config();
 
 const galleryApp = express();
 const port = process.env.PORT;
