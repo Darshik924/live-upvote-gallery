@@ -4,12 +4,12 @@ const PostForm = () => {
   const [title, setTitle] = useState("");
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
+  const [isLoading, setLoading] = useState(false);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setImage(file);
 
-    // preview
     if (file) {
       setPreview(URL.createObjectURL(file));
     }
@@ -20,10 +20,26 @@ const PostForm = () => {
 
     if (!title || !image) return;
 
-    console.log("Title:", title);
-    console.log("Image:", image);
+    const formData = new FormData();
+    formData.append("img", image);
+    formData.append("title", title);
 
-    // reset
+    try {
+      setLoading(true);
+      const res = await fetch("http://localhost:8889/api/createpost", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+
+      console.log("Posted Image", data);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+
     setTitle("");
     setImage(null);
     setPreview(null);
@@ -37,7 +53,6 @@ const PostForm = () => {
       >
         <h2 className="text-2xl font-bold text-gray-800">Upload Image</h2>
 
-        {/* Title Input */}
         <input
           type="text"
           placeholder="Enter title..."
@@ -46,7 +61,6 @@ const PostForm = () => {
           className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
 
-        {/* Image Input */}
         <input
           type="file"
           accept="image/*"
@@ -54,7 +68,6 @@ const PostForm = () => {
           className="border rounded-md px-3 py-2 bg-white"
         />
 
-        {/* Preview */}
         {preview && (
           <img
             src={preview}
@@ -63,10 +76,11 @@ const PostForm = () => {
           />
         )}
 
-        {/* Submit Button */}
+        {isLoading && <p className="text-sm text-gray-500">Uploading...</p>}
+
         <button
           type="submit"
-          className="bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition"
+          className="bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition cursor-pointer"
         >
           Post Image
         </button>
