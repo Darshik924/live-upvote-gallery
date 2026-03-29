@@ -5,7 +5,7 @@ const Gallery = () => {
   const Arr = [1, 2, 3, 4, 45, 6];
 
   return (
-    <main className="flex flex-wrap gap-10 ml-28 mr-28 pt-17 min-h-screen">
+    <main className="flex flex-wrap gap-10 pt-17 min-h-screen">
       {Arr.map((ele) => (
         <ImageCard key={ele} />
       ))}
