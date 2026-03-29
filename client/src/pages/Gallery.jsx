@@ -24,7 +24,7 @@ const Gallery = ({ imagesArray, setPosts }) => {
   }, []);
 
   return (
-    <main className="min-h-screen bg-gray-100 pt-20 px-6">
+    <main className="min-h-screen bg-gray-100 py-20 px-6">
       <h1 className="text-3xl font-bold text-gray-800 mb-6">Image Gallery</h1>
 
       {isLoading && (

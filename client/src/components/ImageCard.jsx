@@ -6,11 +6,11 @@ const ImageCard = ({ post }) => {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+    <div className="bg-white rounded-xl h-100 shadow-md overflow-hidden hover:shadow-lg transition duration-300">
       <img
         src={post.imageUrl}
         alt="Post"
-        className="w-full h-48 object-cover"
+        className="w-full h-84 object-cover"
       />
 
       <div className="flex items-center justify-between p-4">
