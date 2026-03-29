@@ -1,14 +1,16 @@
-import React from "react";
-import PostForm from "./components/PostForm";
+import React, { useState } from "react";
+import PostForm from "./pages/PostForm";
 import Navbar from "./components/Navbar";
-import Gallery from "./components/Gallery";
+import Gallery from "./pages/Gallery";
 
 const App = () => {
+  const [imagesArray, setPosts] = useState([]);
+
   return (
     <div>
       {/* <PostForm/> */}
       <Navbar />
-      <Gallery />
+      <Gallery imagesArray={imagesArray} setPosts={setPosts} />
     </div>
   );
 };

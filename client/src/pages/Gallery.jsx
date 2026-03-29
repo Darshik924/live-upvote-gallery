@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import ImageCard from "./ImageCard";
+import ImageCard from "../components/ImageCard";
 
-const Gallery = () => {
+const Gallery = ({ imagesArray, setPosts }) => {
   const [isLoading, setLoading] = useState(false);
-  const [imagesArray, setPosts] = useState([]);
 
   const fetchAllPosts = async () => {
     try {
@@ -26,15 +25,19 @@ const Gallery = () => {
 
   return (
     <main className="min-h-screen bg-gray-100 pt-20 px-6">
-      {/* Heading */}
       <h1 className="text-3xl font-bold text-gray-800 mb-6">Image Gallery</h1>
 
-      {/* Grid Container */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {imagesArray.map((ele, idx) => (
-          <ImageCard key={idx} post={ele} />
-        ))}
-      </div>
+      {imagesArray.length === 0 ? (
+        <div className="flex justify-center flex-col items-center text-red-800 font-bold font-sans p-3">
+          There are no Posts Yet!
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {imagesArray.map((ele, idx) => (
+            <ImageCard key={idx} post={ele} />
+          ))}
+        </div>
+      )}
     </main>
   );
 };
