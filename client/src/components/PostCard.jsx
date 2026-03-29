@@ -4,7 +4,6 @@ import confetti from 'canvas-confetti';
 
 const PostCard = ({ post }) => {
   const handleUpvote = () => {
-    // Emit the upvote event to the server
     socket.emit("upvote_post", post._id);
   };
 

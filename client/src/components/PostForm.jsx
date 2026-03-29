@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 
 const PostForm = () => {
   const [url, setUrl] = useState("");
@@ -8,7 +7,6 @@ const PostForm = () => {
     e.preventDefault();
     if (!url) return;
     
-    await axios.post("http://localhost:5000/api/posts", { imageUrl: url });
     setUrl("");
   };
 

@@ -4,7 +4,6 @@ const postSchema = mongoose.Schema({
   title: { type: String, required: true, trim: true },
   imageUrl: { type: String, unique: true },
   upvotes: { type: Number, default: 0 },
-  dislikes: { type: Number, default: 0 },
 });
 
 const postModel = mongoose.model("Post", postSchema);
@@ -15,7 +14,6 @@ const createPost = async ({ title, imageUrl }) => {
       title,
       imageUrl,
       upvotes: 0,
-      dislikes: 0,
     };
 
     postModel.insertOne(m);

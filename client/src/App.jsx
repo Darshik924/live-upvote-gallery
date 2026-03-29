@@ -1,12 +1,11 @@
 import React from "react";
-import Nav from "./components/Nav";
-import Gallery from "./components/Gallery";
+import PostForm from "./components/PostForm";
 
 const App = () => {
   return (
     <div>
-      <Nav />
-      <Gallery />
+      <PostForm/>
+
     </div>
   );
 };
