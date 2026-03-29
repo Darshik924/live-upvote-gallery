@@ -5,12 +5,16 @@ import Gallery from "./pages/Gallery";
 
 const App = () => {
   const [imagesArray, setPosts] = useState([]);
+  const [view, setView] = useState("gallery");
 
   return (
     <div>
       {/* <PostForm/> */}
-      <Navbar />
-      <Gallery imagesArray={imagesArray} setPosts={setPosts} />
+      <Navbar setView={setView} />
+      {view === "gallery" && (
+        <Gallery imagesArray={imagesArray} setPosts={setPosts} />
+      )}
+      {view === "upload" && <PostForm />}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React from "react";
 
-const Navbar = () => {
+const Navbar = ({ setView }) => {
   const navItemsClass =
     "text-lg px-4 py-2 font-semibold font-sans cursor-pointer hover:text-blue-500 transition duration-200";
 
@@ -9,9 +9,15 @@ const Navbar = () => {
       <h1 className="text-2xl font-bold text-gray-800">Imagirium</h1>
 
       <div className="flex gap-8 text-gray-700">
-        <div className={navItemsClass}>Home</div>
-        <div className={navItemsClass}>Uploads</div>
-        <div className={navItemsClass}>Images</div>
+        <div className={navItemsClass} onClick={() => setView("gallery")}>
+          Home
+        </div>
+        <div className={navItemsClass} onClick={() => setView("upload")}>
+          Uploads
+        </div>
+        <div className={navItemsClass} onClick={() => setView("gallery")}>
+          Images
+        </div>
       </div>
     </nav>
   );

@@ -27,6 +27,12 @@ const Gallery = ({ imagesArray, setPosts }) => {
     <main className="min-h-screen bg-gray-100 pt-20 px-6">
       <h1 className="text-3xl font-bold text-gray-800 mb-6">Image Gallery</h1>
 
+      {isLoading && (
+        <div className="flex justify-center flex-col items-center text-red-800 font-bold font-sans p-3">
+          Please Wait for the Server
+        </div>
+      )}
+
       {imagesArray.length === 0 ? (
         <div className="flex justify-center flex-col items-center text-red-800 font-bold font-sans p-3">
           There are no Posts Yet!
@@ -38,6 +44,7 @@ const Gallery = ({ imagesArray, setPosts }) => {
           ))}
         </div>
       )}
+      
     </main>
   );
 };
