@@ -48,5 +48,15 @@ const doesImageExist = async ({ imageUrl }) => {
   }
 };
 
-export { doesImageExist, createPost, deletePost };
+const allPostsGet = async () => {
+  try {
+    const imagesArr = await postModel.find().sort({ createdAt: -1 });
+    return imagesArr;
+  } catch (err) {
+    console.log(err);
+    return [];
+  }
+};
+
+export { doesImageExist, createPost, deletePost, allPostsGet };
 export default postModel;

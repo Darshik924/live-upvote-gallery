@@ -1,38 +1,27 @@
 import React from "react";
 
 const ImageCard = ({ post }) => {
-  // Dummy fallback (so it works even without backend)
-  const dummyPost = {
-    imageUrl: "https://picsum.photos/400/300",
-    upvotes: 12,
-    _id: "1",
-  };
-
-  const data = post || dummyPost;
-
   const handleUpvote = () => {
-    console.log("Upvoted:", data._id);
-    // socket.emit("upvote_post", data._id);
+    console.log("Upvoted:", post._id);
   };
 
   return (
     <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition duration-300">
-      {/* Image */}
       <img
-        src={data.imageUrl}
+        src={post.imageUrl}
         alt="Post"
         className="w-full h-48 object-cover"
       />
 
-      {/* Info Section */}
       <div className="flex items-center justify-between p-4">
-        {/* Upvotes */}
-        <span className="text-gray-700 font-semibold">🔥 {data.upvotes}</span>
+        <span className="text-gray-700 font-semibold">🔥 {post.upvotes}</span>
+        <div className="p-2 font-semibold font-sans rounded-2xl bg-white text-gray-800">
+          {post.title}
+        </div>
 
-        {/* Button */}
         <button
           onClick={handleUpvote}
-          className="bg-blue-500 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-600 transition"
+          className="bg-blue-500 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-600 transition cursor-pointer"
         >
           ▲ Upvote
         </button>

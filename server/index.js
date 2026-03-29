@@ -11,10 +11,19 @@ Must Aviod:
 import express from "express";
 import router from "./routes/postRoutes.js";
 import { dbConnect } from "./db/dbConnection.js";
+import cors from "cors";
 
 const galleryApp = express();
 const port = process.env.PORT;
 const dbUrl = process.env.Db_URL;
+
+galleryApp.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  }),
+);
+
 dbConnect(dbUrl);
 
 galleryApp.use(express.json());
