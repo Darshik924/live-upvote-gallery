@@ -2,7 +2,7 @@ import React from 'react';
 import socket from '../socket';
 import confetti from 'canvas-confetti';
 
-const PostCard = ({ post }) => {
+const ImageCard = ({ post }) => {
   const handleUpvote = () => {
     socket.emit("upvote_post", post._id);
   };
@@ -32,4 +32,4 @@ const PostCard = ({ post }) => {
   );
 };
 
-export default PostCard;
+export default ImageCard;
