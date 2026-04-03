@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
-import ImageCard from "../components/ImageCard";
+import { useGallery } from "../context/GalleryContext";
+import GalleryGrid from "../components/GalleryGrid";
+import CreatePostForm from "../components/CreatePostForm";
 
-const Gallery = ({ imagesArray, setPosts }) => {
+const Gallery = () => {
+  const { posts, celebrationPostId, upvotePost, addPost, setPosts } =
+    useGallery();
+
   const [isLoading, setLoading] = useState(false);
 
   const fetchAllPosts = async () => {
@@ -24,8 +29,41 @@ const Gallery = ({ imagesArray, setPosts }) => {
   }, []);
 
   return (
-    <main className="min-h-screen bg-gray-100 py-20 px-6">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">Image Gallery</h1>
+    <main className="min-h-screen py-20">
+      <main className="gallery-page min-h-screen py-20">
+        <header className="gallery-header">
+          <div>
+            <p className="eyebrow">Realtime upvotes</p>
+            <h1>Pulse Gallery</h1>
+            <p className="header-copy">
+              Upload visuals, watch votes jump instantly, and celebrate
+              milestone moments.
+            </p>
+          </div>
+        </header>
+
+        <section className="gallery-layout">
+          <aside>
+            <CreatePostForm onCreate={addPost} />
+            <div className="info-card">
+              <h3>Frontend features covered</h3>
+              <ul>
+                <li>
+                  Realtime-ready upvote updates with Socket.io client support
+                </li>
+                <li>Milestone confetti animation on every 10th upvote</li>
+                <li>Reusable component-based React structure</li>
+              </ul>
+            </div>
+          </aside>
+
+          <GalleryGrid
+            posts={posts}
+            onUpvote={upvotePost}
+            celebrationPostId={celebrationPostId}
+          />
+        </section>
+      </main>
 
       {isLoading && (
         <div className="flex justify-center flex-col items-center text-red-800 font-bold font-sans p-3">
@@ -33,18 +71,11 @@ const Gallery = ({ imagesArray, setPosts }) => {
         </div>
       )}
 
-      {imagesArray.length === 0 ? (
+      {posts.length === 0 && (
         <div className="flex justify-center flex-col items-center text-red-800 font-bold font-sans p-3">
           There are no Posts Yet!
         </div>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {imagesArray.map((ele, idx) => (
-            <ImageCard key={idx} post={ele} />
-          ))}
-        </div>
       )}
-      
     </main>
   );
 };
