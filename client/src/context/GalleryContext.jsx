@@ -34,7 +34,7 @@ export function GalleryProvider({ children }) {
     try {
       setLoading(true);
 
-      const res = await fetch(`http://localhost:8889/api/posts`);
+      const res = await fetch(`${API}/api/posts`);
       const data = await res.json();
 
       const normalized = data.map((post) => ({
@@ -70,7 +70,9 @@ export function GalleryProvider({ children }) {
     const handleUpvoteSync = ({ postId, upvotes }) => {
       setPosts((currentPosts) =>
         currentPosts.map((post) =>
-          post.id === postId ? { ...post, upvotes } : post,
+          post.id.toString() === postId.toString()
+            ? { ...post, upvotes }
+            : post,
         ),
       );
 
@@ -132,7 +134,7 @@ export function GalleryProvider({ children }) {
       payload.append("title", formData.title);
       payload.append("img", formData.imageFile);
 
-      const res = await fetch(`http://localhost:8889/api/createpost`, {
+      const res = await fetch(`${API}/api/createpost`, {
         method: "POST",
         body: payload,
       });

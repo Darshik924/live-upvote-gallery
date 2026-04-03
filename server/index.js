@@ -19,7 +19,7 @@ import postModel from "./models/Post.js";
 const galleryApp = express();
 const ser = http.createServer(galleryApp); // Wrapping express in http server
 const io = new Server(ser, {
-  cors: { origin: "http://localhost:5173" },
+  cors: { origin: "*" },
 });
 
 const port = process.env.PORT;
@@ -27,7 +27,7 @@ const dbUrl = process.env.Db_URL;
 
 galleryApp.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: [`${process.env.FT_URL}`, "http://localhost:5173"],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   }),
 );
@@ -53,6 +53,10 @@ io.on("connection", (socket) => {
       { new: true },
     );
     /*  We are using a MongoDB operator that means "increment". So it takes the current upvotes value in the DB and adds 1 to it automatically — meaning even if 100 users click upvote at the same time, each increment happens safely one at a time, no count gets lost. */
+    if (!updatedPost) {
+      console.log("Post not found:", postId);
+      return; // or emit an error back to client
+    }
 
     io.emit("post:upvoteSync", {
       postId,
@@ -70,5 +74,5 @@ io.on("connection", (socket) => {
 
 /* Socket Logics END */
 
-ser.listen(port,'0.0.0.0', () => console.log(`Server is up at ${port}`));
+ser.listen(port, "0.0.0.0", () => console.log(`Server is up at ${port}`));
 export { galleryApp };
