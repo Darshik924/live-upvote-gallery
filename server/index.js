@@ -70,5 +70,5 @@ io.on("connection", (socket) => {
 
 /* Socket Logics END */
 
-ser.listen(port, () => console.log(`Server is up at ${port}`));
+ser.listen(port,'0.0.0.0', () => console.log(`Server is up at ${port}`));
 export { galleryApp };

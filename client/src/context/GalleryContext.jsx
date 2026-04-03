@@ -7,6 +7,7 @@ import {
   useState,
 } from "react";
 import { getSocket } from "../services/socket";
+const API = import.meta.env.VITE_API_URL;
 
 const GalleryContext = createContext(null);
 
@@ -33,7 +34,7 @@ export function GalleryProvider({ children }) {
     try {
       setLoading(true);
 
-      const res = await fetch("http://localhost:8889/api/posts");
+      const res = await fetch(`http://localhost:8889/api/posts`);
       const data = await res.json();
 
       const normalized = data.map((post) => ({
@@ -131,7 +132,7 @@ export function GalleryProvider({ children }) {
       payload.append("title", formData.title);
       payload.append("img", formData.imageFile);
 
-      const res = await fetch("http://localhost:8889/api/createpost", {
+      const res = await fetch(`http://localhost:8889/api/createpost`, {
         method: "POST",
         body: payload,
       });

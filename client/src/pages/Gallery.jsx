@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useGallery } from "../context/GalleryContext";
 import GalleryGrid from "../components/GalleryGrid";
 import CreatePostForm from "../components/CreatePostForm";
-
+const API = import.meta.env.VITE_API_URL;
 const Gallery = () => {
   const { posts, celebrationPostId, upvotePost, addPost, setPosts } =
     useGallery();
@@ -13,7 +13,7 @@ const Gallery = () => {
     try {
       setLoading(true);
 
-      const res = await fetch("http://localhost:8889/api/posts");
+      const res = await fetch(`http://localhost:8889/api/posts`);
       const data = await res.json();
 
       setPosts(data);
