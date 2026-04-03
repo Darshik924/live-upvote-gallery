@@ -13,7 +13,7 @@ const Gallery = () => {
     try {
       setLoading(true);
 
-      const res = await fetch(`http://localhost:8889/api/posts`);
+      const res = await fetch(`${API}/api/posts`);
       const data = await res.json();
 
       setPosts(data);

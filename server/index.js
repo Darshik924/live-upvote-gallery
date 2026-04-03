@@ -27,7 +27,7 @@ const dbUrl = process.env.Db_URL;
 
 galleryApp.use(
   cors({
-    origin: [`${process.env.FT_URL}`, "http://localhost:5173"],
+    origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   }),
 );

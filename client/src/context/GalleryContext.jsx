@@ -29,6 +29,21 @@ export function GalleryProvider({ children }) {
   const [celebrationPostId, setCelebrationPostId] = useState(null);
   const [loading, setLoading] = useState(false);
   const timeoutRef = useRef(null);
+  const [uploading, setUploading] = useState(false);
+  const [errorState, setError] = useState("");
+
+  const getVotedPosts = () => {
+    return JSON.parse(localStorage.getItem("votedPosts") || "[]");
+  };
+
+  const hasVoted = (postId) => {
+    return getVotedPosts().includes(postId);
+  };
+
+  const markVoted = (postId) => {
+    const voted = getVotedPosts();
+    localStorage.setItem("votedPosts", JSON.stringify([...voted, postId]));
+  };
 
   const fetchAllPosts = async () => {
     try {
@@ -111,6 +126,10 @@ export function GalleryProvider({ children }) {
   };
 
   const upvotePost = (postId) => {
+    if (hasVoted(postId)) return;
+
+    markVoted(postId);
+
     setPosts((currentPosts) =>
       currentPosts.map((post) => {
         if (post.id !== postId) return post;
@@ -130,6 +149,9 @@ export function GalleryProvider({ children }) {
 
   const addPost = async (formData) => {
     try {
+      setUploading(true);
+      setError("");
+
       const payload = new FormData();
       payload.append("title", formData.title);
       payload.append("img", formData.imageFile);
@@ -145,13 +167,24 @@ export function GalleryProvider({ children }) {
       }
 
       const newPost = await res.json();
+      if (newPost.message === "Image exists") {
+        setError(newPost.message);
+        setTimeout(() => setError(""), 3000);
+        return;
+      }
 
       setPosts((currentPosts) => [
         { ...newPost, id: newPost._id },
         ...currentPosts,
       ]);
+
+      fetchAllPosts();
     } catch (err) {
       console.error("Failed to create post:", err);
+      setError(err.message);
+      setTimeout(() => setError(""), 3000);
+    } finally {
+      setUploading(false);
     }
   };
   /* Add to post is modified by me so that now it can post images on the backend */
@@ -163,8 +196,10 @@ export function GalleryProvider({ children }) {
       upvotePost,
       addPost,
       setPosts,
+      errorState,
+      uploading,
     }),
-    [posts, celebrationPostId],
+    [posts, celebrationPostId, errorState, uploading],
   );
 
   return (
