@@ -1,5 +1,6 @@
+import { useGallery } from "../context/GalleryContext";
 import { useState } from "react";
-const API = import.meta.env.VITE_API_URL
+const API = import.meta.env.VITE_API_URL;
 
 const initialState = {
   imageUrl: "",
@@ -7,6 +8,7 @@ const initialState = {
 };
 
 function CreatePostForm({ onCreate }) {
+  const { uploading, errorState } = useGallery();
   const [formData, setFormData] = useState(initialState);
   const [preview, setPreview] = useState(null);
   const [imageFile, setImageFile] = useState(null);
@@ -73,7 +75,15 @@ function CreatePostForm({ onCreate }) {
         onChange={handleChange}
         required
       />
-      <button type="submit">Share post</button>
+      <button type="submit" disabled={uploading}>
+        {uploading ? "Uploading..." : "Share post"}
+      </button>
+
+      {errorState && (
+        <div className="text-lg text-red-600 font-sans font-bold">
+          {errorState}
+        </div>
+      )}
     </form>
   );
 }
